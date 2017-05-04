@@ -9,10 +9,9 @@ public class DeleteAction extends Action {
 	@Override
 	public void execute(Expression x) {
 		if(makesSense(x) == false) return;
-		LinkedList<Expression> facts_base = Inference.facts_base;
-		for (int i = 0; i < facts_base.size(); i++) {
-			if(facts_base.get(i).isIdentical(x)) {
-				facts_base.remove(i);
+		for (int i = 0; i < Inference.facts_base.size(); i++) {
+			if(Inference.facts_base.get(i).isIdentical(x)) {
+				Inference.facts_base.remove(i);
 				i--;
 			}
 		}

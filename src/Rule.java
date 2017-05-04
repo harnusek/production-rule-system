@@ -49,7 +49,7 @@ public class Rule {
 			if(fact.isMatching(conditions.getFirst())) {
 				HashMap<String, String> vars = new HashMap<String, String>();
 				setVariables(vars, fact, 0);
-				if(recursion(vars, 0)) {
+				if(solveBinding(vars, 0)) {
 					allBindings.add(new Binding(this, vars));
 				}																
 			}
@@ -59,14 +59,14 @@ public class Rule {
 	/**
 	 * Rekurzivne prechadza elementarne podmienky a nacita premenne
 	 */
-	private boolean recursion(HashMap<String, String> vars, int i) {
+	private boolean solveBinding(HashMap<String, String> vars, int i) {
 		i++;
 		if(i>=conditions.size()) {
 			return true;
 		}
 		for(Expression fact : Inference.facts_base) {
 			if(setVariables(vars, fact, i)) {
-				return recursion(vars, i);
+				return solveBinding(vars, i);
 			}
 		}
 		return false;

@@ -6,7 +6,7 @@ public class Runner {
 	private static final String[] DOMAIN = {"family","vehicle"};
 	
 	public static void main(String[] args) throws IOException {		
-		int index = Integer.valueOf(args[0]);											index=1;
+		int index = Integer.valueOf(args[0]);											index=0;
 
 		Inference.rules_base = readRules(DOMAIN[index]);
 		Inference.facts_base = readFacts(DOMAIN[index]);
