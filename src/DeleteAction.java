@@ -13,10 +13,10 @@ public class DeleteAction extends Action {
 		for (int i = 0; i < facts_base.size(); i++) {
 			if(facts_base.get(i).isIdentical(x)) {
 				facts_base.remove(i);
+				i--;
 			}
 		}
-		sentence = getSentence(x);
-		System.out.print("DELETE "+sentence);
+		System.out.print("DELETE "+getSentence(x));
 		
 	}
 	/**
@@ -33,7 +33,6 @@ public class DeleteAction extends Action {
 	
 	@Override
 	public void print(Expression x) {
-		sentence = getSentence(x);
-		System.out.println("vymaz "+sentence);
+		System.out.println("vymaz "+getSentence(x));
 	}
 }

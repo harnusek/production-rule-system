@@ -3,18 +3,15 @@ import java.io.PrintWriter;
 public class MessageAction extends Action {
 
 	public static PrintWriter msgStream;
-	/**
-	 * 
-	 */
+
 	public MessageAction(String s) {
 		super(s);
 	}
 
 	@Override
 	public void execute(Expression x) {
-		sentence = getSentence(x);
-		msgStream.println(sentence);
-		System.out.println("***MSG "+sentence);
+		msgStream.println(getSentence(x));
+		System.out.println("** messages.txt <- "+getSentence(x)+"**");
 	}
 	/**
 	 * Sprava sama o sebe nema nikdy zmysel
@@ -24,7 +21,6 @@ public class MessageAction extends Action {
 	
 	@Override
 	public void print(Expression x) {
-		sentence = getSentence(x);
-		System.out.print("sprava "+sentence);
+		System.out.print("sprava "+getSentence(x));
 	}
 }

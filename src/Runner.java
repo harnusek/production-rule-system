@@ -6,7 +6,7 @@ public class Runner {
 	private static final String[] DOMAIN = {"family","vehicle"};
 	
 	public static void main(String[] args) throws IOException {		
-		int index = Integer.valueOf(args[0]);											index=0;
+		int index = Integer.valueOf(args[0]);											index=1;
 
 		Inference.rules_base = readRules(DOMAIN[index]);
 		Inference.facts_base = readFacts(DOMAIN[index]);
@@ -37,7 +37,6 @@ public class Runner {
 	}
 	/**
 	 * Nacita zo suboru a vrati pravidla
-	 * @param domain 
 	 */
 	private static LinkedList<Rule> readRules(String domain) throws IOException {
 		BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(domain+"/rules.txt")));

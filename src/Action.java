@@ -1,7 +1,6 @@
 public abstract class Action {
 	
 	public  Expression actionExpression;
-	public  String sentence;
 	public Action(String s) {
 		actionExpression = new Expression(s);
 	}
@@ -14,7 +13,7 @@ public abstract class Action {
 	 */
 	public abstract boolean makesSense(Expression x);
 	/**
-	 * 
+	 * Vrati retazec z vyrazu
 	 */
 	public String getSentence(Expression x) {
 		StringBuilder sb = new StringBuilder();
@@ -25,7 +24,7 @@ public abstract class Action {
 		return sb.toString();
 	}
 	/**
-	 * 
+	 * Vypisanie akcie
 	 */
 	public abstract void print(Expression x); 
 		

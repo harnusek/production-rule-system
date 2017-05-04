@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class Inference {
-	public static final int LIMIT=25;
+	public static final int LIMIT=20;
 	public static LinkedList<Rule> rules_base;
 	public static LinkedList<Expression> facts_base;
 	/**
@@ -21,7 +21,7 @@ public class Inference {
 		}
 	}
 	/**
-	 * 
+	 * Vypise bazu faktov
 	 */
 	private void printFactsBase() {
 		for(Expression x : facts_base) {
@@ -35,10 +35,11 @@ public class Inference {
 	private void filterInstances(LinkedList<Binding> allInstances) {
 		System.out.println();
 		for (int i = 0; i < allInstances.size(); i++) {
+			//allInstances.get(i).printActions();
 			if(allInstances.get(i).needFilter()) {
 				allInstances.remove(i);
 				i--;
-				//System.out.println("X ");
+				//System.out.print(" X\n");
 			}
 			else {
 				allInstances.get(i).printActions();

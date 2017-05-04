@@ -27,8 +27,7 @@ public class AddAction extends Action {
 
 	@Override
 	public void print(Expression x) {
-		sentence = getSentence(x);
-		System.out.print("pridaj "+sentence);
+		System.out.print("pridaj "+getSentence(x));
 	}
 
 

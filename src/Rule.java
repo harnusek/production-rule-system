@@ -47,64 +47,17 @@ public class Rule {
 		LinkedList<Binding> allBindings = new LinkedList<Binding>();
 		for(Expression fact : Inference.facts_base) {
 			if(fact.isMatching(conditions.getFirst())) {
-				createBinding(allBindings, fact);																	
+				HashMap<String, String> vars = new HashMap<String, String>();
+				setVariables(vars, fact, 0);
+				if(recursion(vars, 0)) {
+					allBindings.add(new Binding(this, vars));
+				}																
 			}
 		}
 		return allBindings;
 	}
 	/**
-	 * Vrati naviazanie alebo null
-	 * @param allBindings 
-	 */
-	private void createBinding(LinkedList<Binding> allBindings, Expression fact) {
-		HashMap<String, String> vars = new HashMap<String, String>();
-
-		setVariables(vars, fact, 0);
-		
-		if(recursion(vars, 0)) {
-			//System.out.println(name + " > " + vars);
-			allBindings.add(new Binding(this, vars));
-		}
-				
-	}
-	/**
-	 * Naviaze premenne. Vrati uspesnost naviazania premennych.
-	 */
-	private boolean setVariables(HashMap<String, String> vars, Expression fact, int i) {
-		Iterator<String> factI = fact.words.iterator();
-		Iterator<String> condI = conditions.get(i).words.iterator();
-		
-		if(conditions.get(i).words.get(0).equals("<>")) return !isDuplicatedVar(vars, this.conditions.get(i));
-		//System.out.println("\t" + fact.words + " - " + conditions.get(i).words);
-		
-		while(factI.hasNext() && condI.hasNext()) {
-			String f = factI.next();
-			String c = condI.next();
-
-			if(c.charAt(0) == '?') {
-				if(vars.containsKey(c)) {
-					if(vars.get(c).equals(f) == false) {
-						return false;
-					}
-				}
-				else {
-					vars.put(c, f);
-				}
-			}
-			else if(c.equals(f) == false) {
-				return false;
-			}
-		}
-		return true;
-	}
-	private boolean isDuplicatedVar(HashMap<String, String> vars, Expression x) {
-		String name1 = vars.get(x.words.get(1));
-		String name2 = vars.get(x.words.get(2));
-		return name1.equals(name2);
-	}
-	/**
-	 * Rekurzia
-	 * @return 
+	 * Rekurzivne prechadza elementarne podmienky a nacita premenne
 	 */
 	private boolean recursion(HashMap<String, String> vars, int i) {
 		i++;
@@ -118,7 +71,41 @@ public class Rule {
 		}
 		return false;
 	}
+	/**
+	 * Naviaze premenne. Vrati uspesnost naviazania premennych.
+	 */
+	private boolean setVariables(HashMap<String, String> vars, Expression fact, int i) {
+		Iterator<String> factI = fact.words.iterator();
+		Iterator<String> condI = conditions.get(i).words.iterator();
+		//Specialna podmienka
+		if(conditions.get(i).words.get(0).equals("<>")) {
+			return areUnique(vars, this.conditions.get(i));
+		}
+		
+		while(factI.hasNext() && condI.hasNext()) {
+			String f = factI.next();
+			String c = condI.next();
 
-	
-
+			if(c.charAt(0) == '?') {			//premenna
+				if(vars.containsKey(c)) {
+					if(vars.get(c).equals(f) == false) return false;//nezhoduju sa v premennych
+				}
+				else {
+					vars.put(c, f);
+				}
+			}
+			else if(c.equals(f) == false) {		//nezhoduju sa v syntaxzy
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * Zisti ci maju dve premenne rovnaky obsah
+	 */
+	private boolean areUnique(HashMap<String, String> vars, Expression x) {
+		String name1 = vars.get(x.words.get(1));
+		String name2 = vars.get(x.words.get(2));
+		return !name1.equals(name2);
+	}
 }

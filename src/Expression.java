@@ -12,8 +12,7 @@ public class Expression {
 		words = new LinkedList<String>();
 		for(String w : s.split(" ")) {
 			words.add(w);
-			//System.out.print(w);
-		}//System.out.println();
+		}
 	}
 	public Expression() {
 		words = new LinkedList<String>();
